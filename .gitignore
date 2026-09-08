@@ -1,0 +1,43 @@
+# Gradle
+.gradle/
+build/
+out/
+
+# Minecraft run directories
+run/
+run-data/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Eclipse
+.classpath
+.project
+.settings/
+bin/
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
+
+# Crash reports
+crash-reports/
+
+# Java
+*.class
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local dependency jars
+libs/*.jar
+
+# Temporary files
+*.tmp
+*.bak

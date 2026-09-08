@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "ru.deckbridge.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "deckbridge.refmap.json",
+  "client": [
+    "KeyMappingMixin",
+    "KeyMappingAccessor",
+    "OptionsMixin",
+    "VanillaKeyBindsListKeyEntryMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
