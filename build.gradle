@@ -71,8 +71,14 @@ sourceSets.main.resources {
 }
 
 repositories {
-    flatDir {
-        dirs 'libs'
+    // CurseForge Maven.
+    // Gradle will download optional compatibility mods automatically.
+    maven {
+        url = "https://www.cursemaven.com"
+
+        content {
+            includeGroup "curse.maven"
+        }
     }
 }
 
@@ -80,16 +86,7 @@ dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
-
-    /*
-     * Optional compatibility with Controlling.
-     * This is needed only for compilation of ControllingCompat.java.
-     * Controlling is NOT required as a mandatory runtime dependency.
-     *
-     * Required file:
-     * libs/Controlling-forge-1.19.2-10.0+7.jar
-     */
-    compileOnly name: 'Controlling-forge-1.19.2-10.0+7'
+    implementation fg.deobf("curse.maven:controlling-250398:4050343")
 }
 
 tasks.named('processResources', ProcessResources).configure {
