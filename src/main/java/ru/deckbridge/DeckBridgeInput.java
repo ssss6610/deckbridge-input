@@ -5,7 +5,6 @@ import com.sun.net.httpserver.HttpServer;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
@@ -47,8 +46,7 @@ public class DeckBridgeInput {
 
     private void registerOptionalCompat() {
         if (ModList.get().isLoaded("controlling")) {
-            MinecraftForge.EVENT_BUS.register(new ControllingCompat());
-            LOGGER.info("DeckBridge Controlling compatibility enabled");
+            ControllingCompat.register();
         }
     }
 
