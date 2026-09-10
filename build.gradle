@@ -10,7 +10,7 @@ version = mod_version
 group = mod_group_id
 
 base {
-    archivesName = mod_id
+    archivesName = 'deckbridge-input'
 }
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
@@ -19,13 +19,11 @@ println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty '
 
 minecraft {
     mappings channel: mapping_channel, version: mapping_version
-
     copyIdeResources = true
 
     runs {
         configureEach {
             workingDirectory project.file('run')
-
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
             property 'forge.enabledGameTestNamespaces', mod_id
@@ -52,7 +50,6 @@ minecraft {
 
         data {
             workingDirectory project.file('run-data')
-
             args '--mod', mod_id,
                     '--all',
                     '--output', file('src/generated/resources/'),
@@ -70,13 +67,9 @@ sourceSets.main.resources {
     srcDir 'src/generated/resources'
 }
 
-
-
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
-
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
-
 }
 
 tasks.named('processResources', ProcessResources).configure {
@@ -103,18 +96,23 @@ tasks.named('processResources', ProcessResources).configure {
 
 tasks.named('jar', Jar).configure {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    archiveFileName = "deckbridge-input-${mod_version}-forge-${minecraft_version}.jar"
 
     manifest {
         attributes([
                 'Specification-Title'     : mod_id,
                 'Specification-Vendor'    : mod_authors,
                 'Specification-Version'   : '1',
-                'Implementation-Title'    : project.name,
-                'Implementation-Version'  : project.jar.archiveVersion,
+                'Implementation-Title'    : mod_name,
+                'Implementation-Version'  : mod_version,
                 'Implementation-Vendor'   : mod_authors,
                 'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
                 'MixinConfigs'            : 'deckbridge.mixins.json'
         ])
+    }
+
+    from('LICENSE.txt') {
+        rename { "${it}_${mod_id}" }
     }
 
     finalizedBy 'reobfJar'
